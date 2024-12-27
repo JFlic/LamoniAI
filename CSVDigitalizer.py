@@ -1,6 +1,9 @@
 import csv
 import time
 
+import torch
+import gc
+
 # Docling model imports
 from docling.datamodel.base_models import InputFormat
 from docling.datamodel.pipeline_options import (
@@ -33,7 +36,7 @@ converter = DocumentConverter(
 csv_file_path = "GetPDFUrls.csv"
 
 # Output directory
-output_dir = "/Users/jackflickinger/Desktop/GracelandGPT/RawDigitalizedScans"
+output_dir = "/Users/jackflickinger/Desktop/LamoniAI/RawDigitalizedScans"
 
 process_start = time.time()
 
@@ -41,34 +44,33 @@ process_start = time.time()
 with open(csv_file_path, 'r') as file:
     csv_reader = csv.reader(file)
 
-    # Process only the first 10 rows
-    # just remove the row_count if statement stuff and you can digitalize the whole csv file. 
+    # Digitalized files using contents of GetPDFUrls.csv
     row_count = 0
     for row in csv_reader:
-        if row_count <= 17:
-            row_count += 1
-        elif row_count > 17 and row_count <= 100:
-            url = row[0]
-            name = row[1]
-            row_count += 1
+        url = row[0]
+        name = row[1]
+        row_count += 1
 
-            digitalize_start = time.time()
-            result = converter.convert(url)
-            output_path = f"{output_dir}/{name}.md" # Saved to new directory
+        digitalize_start = time.time()
+        result = converter.convert(url)
+        output_path = f"{output_dir}/{name}.md" # Saved to new directory
 
-            with open(output_path , "w", encoding="utf-8") as file:
-                file.write(result.document.export_to_markdown())
+        with open(output_path , "w", encoding="utf-8") as file:
+            file.write(result.document.export_to_markdown())
 
-            digitalize_end = time.time()
-            digitalize_elapsed_time = digitalize_end - digitalize_start
+        digitalize_end = time.time()
+        digitalize_elapsed_time = digitalize_end - digitalize_start
 
-            print(f"page {name} succesfully digitilized")
-            print(f"stored in {output_path}")
-            print(f"file took {digitalize_elapsed_time:.2f} seconds to digitalize")
-            print("******************************************")
+        print(f"page {name} succesfully digitilized")
+        print(f"stored in {output_path}")
+        print(f"file took {digitalize_elapsed_time:.2f} seconds to digitalize")
+        print("******************************************")
+        # After processing each document
 
-        else:
-            break
+        #clear GPU cache after every article or computer will run out of MPS
+        torch.cuda.empty_cache()
+        gc.collect()
+        
 
 process_end = time.time()
 elapsed_time = process_end - process_start
