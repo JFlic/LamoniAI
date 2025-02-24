@@ -23,6 +23,12 @@ The Prototypes folder holds different prototypes that were used to make the curr
 RawDigitalizedScans folder holds all the raw mark down files that haven't been spell checked yet.
 
 The SpellcheckedScans folder holds the files that have been spell checked by the Spellchecker.py
+
+TestScans holds different docling pipeline configuration outputs.
+
+# chatGPT clean up
+The token limit for chatGPT is 4,000 tokens. 
+
       
 # Bugs
 For some reason the UrlSaver.py file will execute for a while and then pause for some reason. The code doesn’t crash or anything which is frustrating. Might have something to do with my laptop that I’m running it on or worst case the actual website itself having a hiccup when the GETpdf url is being created. 
