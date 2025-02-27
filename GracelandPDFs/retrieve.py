@@ -18,7 +18,7 @@ GEN_MODEL_ID = "mistralai/Mixtral-8x7B-Instruct-v0.1"
 HF_TOKEN = os.getenv("HUGGING_FACE_KEY")
 MILVUS_URI = "http://localhost:19530"
 TOP_K = 3
-QUESTION = "Tell me about Graceland"
+QUESTION = "Tell me about the Burlington system"
 
 PROMPT = PromptTemplate.from_template(
     "Context information is below.\n---------------------\n{context}\n---------------------\nGiven the context information and not prior knowledge, answer the query.\nQuery: {input}\nAnswer:\n"
