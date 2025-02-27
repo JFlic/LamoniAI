@@ -1,24 +1,22 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
-from retrieve import rag_chain, clip_text  # Import retrieval logic from retrieve.py
+from retrieve import get_query_result
 
 app = FastAPI()
 
+# Add CORS middleware with expanded configuration
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:3000", "http://172.22.48.1:3000"],  # Allow both localhost and network IP
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allow_headers=["*"],
+)
+
 class QueryRequest(BaseModel):
-    question: str
+    query: str
 
-@app.post("/ask")
-def ask_question(request: QueryRequest):
-    resp_dict = rag_chain.invoke({"input": request.question})
-    clipped_answer = clip_text(resp_dict["answer"], threshold=1000)
-    
-    sources = [
-        {
-            "text": clip_text(doc.page_content, threshold=500),
-            "article_name": doc.metadata.get("dl_meta", {}).get("origin", {}).get("filename", "Unknown").split(".")[0],
-            "page_number": doc.metadata.get("dl_meta", {}).get("doc_items", [{}])[0].get("prov", [{}])[0].get("page_no", "Unknown")
-        }
-        for doc in resp_dict["context"]
-    ]
-
-    return {"question": request.question, "answer": clipped_answer, "sources": sources}
+@app.post("/query/")
+async def my_query_endpoint(query: QueryRequest):
+    return await get_query_result(query)
