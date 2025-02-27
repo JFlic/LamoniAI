@@ -42,6 +42,13 @@ for file in md_files:
         chunker=HybridChunker(tokenizer=EMBED_MODEL_ID),
     )
     docs = loader.load()
+
+    # create a dictionary object from GetPDFUrls.csv that will store the keys as markdown file names and source urls as values
+    for doc in docs:
+        full_path =doc.metadata["source"]
+        filename = os.path.basename(full_path)
+        print(filename[:-3])
+
     all_splits.extend(docs)
 
 # Process PDF files
@@ -53,19 +60,21 @@ for file in pdf_files:
         chunker=HybridChunker(tokenizer=EMBED_MODEL_ID),
     )
     docs = loader.load()
+
+    
     all_splits.extend(docs)
 
 print(f"Total document chunks created: {len(all_splits)}")
 
-# Initialize embedding and vector store
-embedding = HuggingFaceEmbeddings(model_name=EMBED_MODEL_ID)
-vectorstore = Milvus.from_documents(
-    documents=all_splits,
-    embedding=embedding,
-    collection_name="lamoni_collection",
-    connection_args={"uri": MILVUS_URI},
-    index_params={"index_type": "FLAT", "metric_type": "COSINE"},
-    drop_old=True,
-)
+# # Initialize embedding and vector store
+# embedding = HuggingFaceEmbeddings(model_name=EMBED_MODEL_ID)
+# vectorstore = Milvus.from_documents(
+#     documents=all_splits,
+#     embedding=embedding,
+#     collection_name="lamoni_collection",
+#     connection_args={"uri": MILVUS_URI},
+#     index_params={"index_type": "FLAT", "metric_type": "COSINE"},
+#     drop_old=True,
+# )
 
-print("Data ingestion complete. Chunks stored in Milvus.")
+# print("Data ingestion complete. Chunks stored in Milvus.")
