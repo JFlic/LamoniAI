@@ -17,6 +17,10 @@ Spellchecker.py uses the spellchecker python library to make spelling and gramme
 
 GetPDFUrls.csv is where the Get pdf urls are stored (example: https://lamoni.advantage-preservation.com/viewer/GetPdfFile?105873767) and the name the file will eventually be called after it goes through the digitalizer. 
 
+# Milvus VectorStore Ingestion
+Milvus ingestion time: 5 days, 17 hours, 25 minutes, and 14.95 seconds
+Total process execution time: 5 days, 17 hours, 31 minutes, and 55.10 seconds
+
 # Folders
 The Prototypes folder holds different prototypes that were used to make the current pipeline. I saved them just in case.
 

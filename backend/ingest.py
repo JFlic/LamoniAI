@@ -92,7 +92,7 @@ milvus_start = time.time()
 embedding = HuggingFaceEmbeddings(model_name=EMBED_MODEL_ID)
 
 # Process in smaller batches to avoid oversize issues
-batch_size = 30
+batch_size = 10
 total_docs = len(all_splits)
 vectorstore = None
 
@@ -113,14 +113,7 @@ for i in range(0, total_docs, batch_size):
         )
     else:
         # Add subsequent batches to the existing vectorstore
-        vectorstore.add_documents(
-            documents=batch,
-            embedding=embedding,
-            collection_name="lamoni_collection",
-            connection_args={"uri": MILVUS_URI},
-            index_params={"index_type": "FLAT", "metric_type": "COSINE"},
-            drop_old=(i == 0),  # Only drop old collection on first batch
-        )
+        vectorstore.add_documents(batch)
 
 print("Data ingestion complete. Chunks stored in Milvus.")
 milvus_end = time.time()
