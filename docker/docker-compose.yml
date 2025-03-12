@@ -1,0 +1,35 @@
+networks:
+  mynetwork:  # Define a custom network
+
+services:
+  timescaledb:
+    image: timescale/timescaledb-ha:pg17
+    container_name: timescaledb
+    environment:
+      - POSTGRES_DB=vector_store
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=RaG32!happyL1fe
+    ports:
+      - "5432:5432"
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data
+    restart: unless-stopped
+    networks:
+      - mynetwork  # Attach to custom network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=flickingerjack@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=RaG32!happyL1fe
+    ports:
+      - "5050:80"
+    depends_on:
+      - timescaledb
+    restart: unless-stopped
+    networks:
+      - mynetwork  # Attach to custom network
+
+volumes:
+  timescaledb_data:

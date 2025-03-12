@@ -18,5 +18,7 @@ class QueryRequest(BaseModel):
     query: str
 
 @app.post("/query/")
-async def my_query_endpoint(query: QueryRequest):
-    return await get_query_result(query)
+async def query_endpoint(query: QueryRequest):
+    # Call the get_query_result function from retrieve.py
+    result = await get_query_result(query)
+    return result
