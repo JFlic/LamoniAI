@@ -15,3 +15,5 @@ langchain_huggingface
 langchain_milvus
 fastapi
 uvicorn
+langchain-postgres
+psycopg[binary]
