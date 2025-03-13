@@ -129,8 +129,8 @@ def trim_metadata(docs):
         # Create a simplified metadata dictionary with only essential fields
         simplified_metadata = {
             "source": doc.metadata.get("source", ""),
-            "title": doc.metadata.get("title", "")[:1000] if doc.metadata.get("title") else "",  # Limit title length
-            "page": doc.metadata.get("page", 0),
+            "title": doc.metadata.get("source", "poop")[:1000] if doc.metadata.get("title") else "",  # Limit title length
+            "page": doc.metadata.get("page", 1),
             "chunk_id": doc.metadata.get("chunk_id", ""),
         }
         
@@ -148,37 +148,69 @@ def trim_metadata(docs):
     
     return trimmed_docs
 
-# Main execution starts here
-try:
-    # Gather all PDF and Markdown files
-    pdf_files = glob.glob(os.path.join(HORIZONS_DIR, "*.pdf"))
-    md_files = glob.glob(os.path.join(HORIZONS_DIR, "*.md"))
+# Gather all PDF and Markdown files
+pdf_files = glob.glob(os.path.join(HORIZONS_DIR, "*.pdf"))
+md_files = glob.glob(os.path.join(HORIZONS_DIR, "*.md"))
 
-    print(f"Processing {len(pdf_files)} PDFs and {len(md_files)} Markdown files from the Horizons directory")
+print(f"Processing {len(pdf_files)} PDFs and {len(md_files)} Markdown files from the Horizons directory")
 
-    # Load and chunk documents
-    all_splits = []
+# Load and chunk documents
+all_splits = []
+print(all_splits)
 
-    # Process Markdown files
-    for file in md_files:
-        print(f"Loading Markdown: {Path(file).name}")
-        loader = DoclingLoader(
-            file_path=[file],
-            export_type=EXPORT_TYPE,
-            chunker=HybridChunker(tokenizer=EMBED_MODEL_ID),
-        )
-        docs = loader.load()
-        # Trim metadata to prevent oversize issues
-        trimmed_docs = trim_metadata(docs)
-        all_splits.extend(trimmed_docs)
+# Process Markdown files
+for file in md_files:
+    print(f"Loading Markdown: {Path(file).name}")
+    loader = DoclingLoader(
+        file_path=[file],
+        export_type=EXPORT_TYPE,
+        chunker=HybridChunker(tokenizer=EMBED_MODEL_ID),
+    )
+    docs = loader.load()
+    # Trim metadata to prevent oversize issues
+    trimmed_docs = trim_metadata(docs)
+    all_splits.extend(trimmed_docs)
 
-    # Process PDF files
-    for file in pdf_files:
-        print(f"Loading PDF: {Path(file).name}")
-        loader = DoclingLoader(
-            file_path=[file],
-            export_type=EXPORT_TYPE,
-            chunker=HybridChunker(tokenizer=EMBED_MODEL_ID),
+# Process PDF files
+for file in pdf_files:
+    print(f"Loading PDF: {Path(file).name}")
+    loader = DoclingLoader(
+        file_path=[file],
+        export_type=EXPORT_TYPE,
+        chunker=HybridChunker(tokenizer=EMBED_MODEL_ID),
+    )
+    docs = loader.load()
+    # Trim metadata to prevent oversize issues
+    trimmed_docs = trim_metadata(docs)
+    all_splits.extend(trimmed_docs)
+
+print(f"Total document chunks created: {len(all_splits)}")
+
+milvus_start = time.time()
+
+# Initialize embedding and vector store
+embedding = HuggingFaceEmbeddings(model_name=EMBED_MODEL_ID)
+
+# Process in smaller batches to avoid oversize issues
+batch_size = 10
+total_docs = len(all_splits)
+vectorstore = None
+
+for i in range(0, total_docs, batch_size):
+    end_idx = min(i + batch_size, total_docs)
+    batch = all_splits[i:end_idx]
+    print(f"Processing batch {i//batch_size + 1}/{(total_docs + batch_size - 1)//batch_size}: documents {i} to {end_idx-1}")
+    
+    if vectorstore is None:
+        # Create the vectorstore with the first batch
+        vectorstore = Milvus.from_documents(
+            documents=batch,
+            embedding=embedding,
+            collection_name="lamoni_collection",
+            connection_args={"uri": MILVUS_URI},
+            index_params={"index_type": "FLAT", "metric_type": "COSINE"},
+            drop_old=(i == 0),  # Only drop old collection on first batch
+
         )
         docs = loader.load()
         # Trim metadata to prevent oversize issues

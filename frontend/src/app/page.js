@@ -15,7 +15,8 @@ export default function Home() {
     setError(null);
 
     try {
-      const res = await fetch("http://127.0.0.1:8000/query/", {
+      const res = await fetch("http://10.110.107.217:8001/query/", {
+
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -32,7 +33,7 @@ export default function Home() {
       setQuery("");
     } catch (err) {
       console.error("Error fetching data:", err);
-      setError("Failed to get response. Please check if the backend server is running.");
+      setError(`Failed to get response: ${err.message}. Please check if the backend server is running on port 8001.`);
     } finally {
       setIsLoading(false);
     }
@@ -97,8 +98,24 @@ export default function Home() {
                   {conv.response.sources && (
                     <>
                       <h4 className="font-semibold">Sources:</h4>
-                      <div className={`p-2 rounded overflow-auto max-h-64 mt-2 ${darkMode ? "bg-gray-700" : "bg-gray-200"}`}>
-                        <pre className="whitespace-pre-wrap text-sm">{JSON.stringify(conv.response.sources, null, 2)}</pre>
+                      <div className={`p-3 rounded mt-2 ${darkMode ? "bg-gray-800" : "bg-gray-100"}`}>
+                        <ul className="list-disc pl-5 space-y-2">
+                          {conv.response.sources.map((source, idx) => (
+                            <li key={idx} className="text-sm">
+                              <span className="font-medium">{source.title || "Unknown Title"}</span>
+                              {source.page && (
+                                <span className="ml-2 text-gray-500">
+                                  {darkMode ? "📄" : "📝"} Page {source.page}
+                                </span>
+                              )}
+                              {source.source && (
+                                <span className="ml-2 text-gray-500">
+                                  {darkMode ? "📂" : "📁"} {source.source}
+                                </span>
+                              )}
+                            </li>
+                          ))}
+                        </ul>
                       </div>
                     </>
                   )}

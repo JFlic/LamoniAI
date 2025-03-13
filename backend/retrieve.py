@@ -21,7 +21,7 @@ load_dotenv()
 EMBED_MODEL_ID = "BAAI/bge-m3"
 GEN_MODEL_ID = "mistralai/Mixtral-8x7B-Instruct-v0.1"
 HF_TOKEN = os.getenv("HUGGING_FACE_KEY2")
-POSTGRES_URI = "postgresql://postgres:RaG32!happyL1fe@localhost:5432/postgres"  # Use same as ingest.py
+MILVUS_URI = "http://localhost:19530"
 TOP_K = 3
 
 # Custom PostgreSQL Retriever
@@ -101,23 +101,25 @@ async def get_query_result(query_request):
     rag_chain = create_retrieval_chain(retriever, question_answer_chain)
     resp_dict = rag_chain.invoke({"input": query_request.query})
 
-    def clip_text(text, threshold=100):
-        return f"{text[:threshold]}..." if len(text) > threshold else text
+    def clip_text(text):
+        return f"{text}"
 
-    clipped_answer = clip_text(resp_dict["answer"], threshold=1000)
+    clipped_answer = clip_text(resp_dict["answer"])
 
-    # Add metadata from retrieved documents
-    sources_with_metadata = []
-    for doc in resp_dict["context"]:
-        sources_with_metadata.append({
-            "content": doc.page_content,
-            "metadata": doc.metadata
-        })
-
+    # Format sources to only include title and page number
+    filtered_sources = [
+        {
+            "title": doc.metadata.get("title", "Unknown"), 
+            "page": doc.metadata.get("page", "1"),
+            "source": doc.metadata.get("source", "").split("\\")[-1] if doc.metadata.get("source") else "Unknown"
+        }
+        for doc in resp_dict["context"]
+    ]
+    print(filtered_sources)
     return {
         "question": query_request.query,
         "answer": clipped_answer,
-        "sources": sources_with_metadata,
+        "sources": filtered_sources,
     }
 
 # If running this file directly (for testing purposes)
