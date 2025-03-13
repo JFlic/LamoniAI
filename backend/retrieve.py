@@ -16,7 +16,7 @@ os.environ["TOKENIZERS_PARALLELISM"] = "false"
 # Constants (you can keep your original constants here)
 EMBED_MODEL_ID = "BAAI/bge-m3"
 GEN_MODEL_ID = "mistralai/Mixtral-8x7B-Instruct-v0.1"
-HF_TOKEN = os.getenv("HUGGING_FACE_KEY")
+HF_TOKEN = os.getenv("HUGGING_FACE_KEY2")
 MILVUS_URI = "http://localhost:19530"
 TOP_K = 3
 
@@ -50,13 +50,23 @@ async def get_query_result(query: QueryRequest):
     rag_chain = create_retrieval_chain(retriever, question_answer_chain)
     resp_dict = rag_chain.invoke({"input": query.query})
 
-    def clip_text(text, threshold=100):
-        return f"{text[:threshold]}..." if len(text) > threshold else text
+    def clip_text(text):
+        return f"{text}"
 
-    clipped_answer = clip_text(resp_dict["answer"], threshold=1000)
+    clipped_answer = clip_text(resp_dict["answer"])
 
+    # Format sources to only include title and page number
+    filtered_sources = [
+        {
+            "title": doc.metadata.get("title", "Unknown"), 
+            "page": doc.metadata.get("page", "1"),
+            "source": doc.metadata.get("source", "").split("\\")[-1] if doc.metadata.get("source") else "Unknown"
+        }
+        for doc in resp_dict["context"]
+    ]
+    print(filtered_sources)
     return {
         "question": query.query,
         "answer": clipped_answer,
-        "sources": resp_dict["context"],
+        "sources": filtered_sources,
     }

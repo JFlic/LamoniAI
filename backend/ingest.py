@@ -30,8 +30,8 @@ def trim_metadata(docs):
         # Create a simplified metadata dictionary with only essential fields
         simplified_metadata = {
             "source": doc.metadata.get("source", ""),
-            "title": doc.metadata.get("title", "")[:1000] if doc.metadata.get("title") else "",  # Limit title length
-            "page": doc.metadata.get("page", 0),
+            "title": doc.metadata.get("source", "poop")[:1000] if doc.metadata.get("title") else "",  # Limit title length
+            "page": doc.metadata.get("page", 1),
             "chunk_id": doc.metadata.get("chunk_id", ""),
         }
         
@@ -57,6 +57,7 @@ print(f"Processing {len(pdf_files)} PDFs and {len(md_files)} Markdown files from
 
 # Load and chunk documents
 all_splits = []
+print(all_splits)
 
 # Process Markdown files
 for file in md_files:
