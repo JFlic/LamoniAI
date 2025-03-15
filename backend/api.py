@@ -20,7 +20,7 @@ class QueryRequest(BaseModel):
 @app.post("/query/")
 async def my_query_endpoint(query: QueryRequest):
     return await get_query_result(query)
-
+# test
 # Add this code to run the server when the file is executed directly
 if __name__ == "__main__":
     import uvicorn
