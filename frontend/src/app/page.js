@@ -15,8 +15,7 @@ export default function Home() {
     setError(null);
 
     try {
-      const res = await fetch("http://10.110.107.217:8001/query/", {
-
+      const res = await fetch("http://10.115.69.24:80/query/", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -33,7 +32,7 @@ export default function Home() {
       setQuery("");
     } catch (err) {
       console.error("Error fetching data:", err);
-      setError(`Failed to get response: ${err.message}. Please check if the backend server is running on port 8001.`);
+      setError(`Failed to get response: ${err.message}. Please check if the backend server is running on port 80.`);
     } finally {
       setIsLoading(false);
     }
