@@ -14,6 +14,6 @@ langchain_docling
 langchain_huggingface
 langchain_milvus
 fastapi
+torch
 uvicorn
-langchain-postgres
-psycopg[binary]
+dotenv
