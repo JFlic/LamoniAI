@@ -11,13 +11,15 @@ from langchain_core.prompts import PromptTemplate
 from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 from langchain_core.documents import Document
 from langchain_core.retrievers import BaseRetriever
+from transformers import pipeline
+import torch
 
 load_dotenv()
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Constants (you can keep your original constants here)
 EMBED_MODEL_ID = "BAAI/bge-m3"
-GEN_MODEL_ID = "mistralai/Mixtral-8x7B-Instruct-v0.1"
+GEN_MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2"
 HF_TOKEN = os.getenv("HUGGING_FACE_KEY2")
 MILVUS_URI = "http://localhost:19530"
 TOP_K = 3
@@ -44,8 +46,11 @@ async def get_query_result(query: QueryRequest):
     )
 
     PROMPT = PromptTemplate.from_template(
-        """Context information is below.\n---------------------\n{context}\n---------------------\n
+        """You are an AI assistant at Graceland University. 
+        You can provide information, answer questions and perform other tasks as needed.
+        \n---------------------\n{context}\n---------------------\n
         Given the context information and not prior knowledge, answer the query.
+        If the context is empty say that you don't have any information about the question.
         \nQuery: {input}\nAnswer:\n"""
     )
 
@@ -53,11 +58,7 @@ async def get_query_result(query: QueryRequest):
     question_answer_chain = create_stuff_documents_chain(llm, PROMPT)
     rag_chain = create_retrieval_chain(retriever, question_answer_chain)
     resp_dict = rag_chain.invoke({"input": query.query})
-
-    def clip_text(text):
-        return f"{text}"
-
-    clipped_answer = clip_text(resp_dict["answer"])
+    clipped_answer = resp_dict["answer"]
 
     # Format sources to only include title and page number
     filtered_sources = [
