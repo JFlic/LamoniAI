@@ -52,7 +52,7 @@ export default function Home() {
         {conversations.length === 0 ? (
           <div className="w-full max-w-2xl px-4">
             <h1 className="text-3xl font-bold text-center mb-8">
-              What do you want to know about Lamoni?
+              What can I help you with about Graceland?
             </h1>
             
             {/* Form Container */}
@@ -101,15 +101,23 @@ export default function Home() {
                         <ul className="list-disc pl-5 space-y-2">
                           {conv.response.sources.map((source, idx) => (
                             <li key={idx} className="text-sm">
-                              <span className="font-medium">{source.title || "Unknown Title"}</span>
+                              {source.source && source.source !== "None" ? (
+                                <a 
+                                  href={source.source} 
+                                  target="_blank" 
+                                  rel="noopener noreferrer" 
+                                  className={`font-medium hover:underline ${darkMode ? 'text-blue-400' : 'text-blue-600'}`}
+                                >
+                                  {source.title || "Unknown Title"}
+                                </a>
+                              ) : (
+                                <span className="font-medium">
+                                  {source.title || "Unknown Title"}
+                                </span>
+                              )}
                               {source.page && (
                                 <span className="ml-2 text-gray-500">
                                   {darkMode ? "📄" : "📝"} Page {source.page}
-                                </span>
-                              )}
-                              {source.source && (
-                                <span className="ml-2 text-gray-500">
-                                  {darkMode ? "📂" : "📁"} {source.source}
                                 </span>
                               )}
                             </li>

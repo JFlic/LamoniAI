@@ -15,6 +15,7 @@ from docling.chunking import HybridChunker
 from langchain_text_splitters import MarkdownHeaderTextSplitter
 from langchain_core.documents import Document
 from huggingface_hub import login
+import pandas as pd
 
 process_start = time.time()
 
@@ -24,21 +25,47 @@ login(token=HF_TOKEN)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Constants
-HORIZONS_DIR = r"C:\Users\IT Lab VR\Desktop\LamoniAI\backend\TempDocumentStore"
+HORIZONS_DIR = r"TempDocumentStore"
 EMBED_MODEL_ID = "BAAI/bge-m3"
 EXPORT_TYPE = ExportType.DOC_CHUNKS
 MILVUS_URI = "http://localhost:19530/"
+CSV_FILE = "GetUrls.csv"
 
+def find_url(csv_file, document_name):
+    """
+    Search for a document name in a CSV file and return the corresponding URL.
+    
+    Parameters:
+    csv_file (str): Path to the CSV file.
+    document_name (str): The name of the document to search for.
+    
+    Returns:
+    str: The corresponding URL if found, otherwise None.
+    """
+    try:
+      df = pd.read_csv(csv_file)
+      result = df.loc[df.iloc[:, 1] == document_name, df.columns[0]]
+      return result.values[0] if not result.empty else None
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
 
 # Function to trim metadata to prevent oversize issues
 def trim_metadata(docs):
     trimmed_docs = []
+    # Create a simplified metadata dictionary with only essential fields
     for doc in docs:
-        # Create a simplified metadata dictionary with only essential fields
+        # editting meta data to correct title
+        source = doc.metadata.get("source")
+        title = source.replace("TempDocumentStore\\","")
+        url = find_url(CSV_FILE, title)
+        if not url:
+            url = "None"
+
         simplified_metadata = {
-            "source": doc.metadata.get("source", ""),
-            "title": doc.metadata.get("source", "poop")[:1000] if doc.metadata.get("title") else "",  # Limit title length
-            "page": doc.metadata.get("page", 1),
+            "title": title,
+            "page": doc.metadata.get("page", "1"),\
+            "source": url,   
             "chunk_id": doc.metadata.get("chunk_id", ""),
         }
         
@@ -90,7 +117,6 @@ for file in pdf_files:
     # Trim metadata to prevent oversize issues
     trimmed_docs = trim_metadata(docs)
     all_splits.extend(trimmed_docs)
-
 print(f"Total document chunks created: {len(all_splits)}")
 
 milvus_start = time.time()
@@ -108,7 +134,6 @@ connections.connect(alias="default", uri=MILVUS_URI)
 # Check if the collection already exists
 collection_name = "lamoni_collection"
 collection_exists = utility.has_collection(collection_name)
-print(collection_exists)
 
 for i in range(0, total_docs, batch_size):
     end_idx = min(i + batch_size, total_docs)
