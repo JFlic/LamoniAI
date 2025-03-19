@@ -45,12 +45,33 @@ async def get_query_result(query: QueryRequest):
         huggingfacehub_api_token=HF_TOKEN,
     )
 
+    # Significantly improved prompt with clear formatting instructions
     PROMPT = PromptTemplate.from_template(
-        """You are an AI assistant at Graceland University. 
-        You can provide information, answer questions and perform other tasks as needed.
+        """"role": "You are an AI assistant at Graceland University. 
+        You can provide information, answer questions and perform other tasks as needed." 
+        
         \n---------------------\n{context}\n---------------------\n
+        
         Given the context information and not prior knowledge, answer the query.
         If the context is empty say that you don't have any information about the question.
+        Don't give sources.
+        At the end tell the user that if they have anymore questions to let you know.
+        Format your response in proper markdown with formatting symbols.
+        
+        2. Use line breaks between paragraphs (two newlines).
+        3. For any lists:
+           - Use bullet points with a dash (-) and a space before each item
+           - Leave a line break before the first list item
+           - Each list item should be on its own line
+        4. For numbered lists:
+           - Use numbers followed by a period (1. )
+           - Leave a line break before the first list item
+           - Each numbered item should be on its own line
+        5. For section headings, use ## (double hash) with a space after.
+        6. Make important terms **bold** using double asterisks.
+        7. If you include code blocks, use triple backticks with the language name.
+        8. Do not use line breaks within the same paragraph.
+        
         \nQuery: {input}\nAnswer:\n"""
     )
 
@@ -69,7 +90,7 @@ async def get_query_result(query: QueryRequest):
         }
         for doc in resp_dict["context"]
     ]
-    print(filtered_sources)
+    print(clipped_answer)
     return {
         "question": query.query,
         "answer": clipped_answer,

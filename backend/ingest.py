@@ -25,11 +25,19 @@ login(token=HF_TOKEN)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Constants
-HORIZONS_DIR = r"TempDocumentStore"
+DOC_LOAD_DIR = r"TempDocumentStore"
 EMBED_MODEL_ID = "BAAI/bge-m3"
 EXPORT_TYPE = ExportType.DOC_CHUNKS
 MILVUS_URI = "http://localhost:19530/"
 CSV_FILE = "GetUrls.csv"
+
+chunker = HybridChunker(
+    tokenizer=EMBED_MODEL_ID,
+    max_tokens=2000,
+    overlap_tokens=200,  # Ensure some overlap between chunks
+    split_by_paragraph=True,  # Enable paragraph-level splitting
+    min_tokens=50  # Minimum chunk size to avoid tiny chunks
+)
 
 def find_url(csv_file, document_name):
     """
@@ -61,10 +69,12 @@ def trim_metadata(docs):
         url = find_url(CSV_FILE, title)
         if not url:
             url = "None"
+        
+        print(doc.metadata.get("page"))
 
         simplified_metadata = {
             "title": title,
-            "page": doc.metadata.get("page", "1"),\
+            "page": doc.metadata.get("page","1"),
             "source": url,   
             "chunk_id": doc.metadata.get("chunk_id", ""),
         }
@@ -84,10 +94,11 @@ def trim_metadata(docs):
     return trimmed_docs
 
 # Gather all PDF and Markdown files
-pdf_files = glob.glob(os.path.join(HORIZONS_DIR, "*.pdf"))
-md_files = glob.glob(os.path.join(HORIZONS_DIR, "*.md"))
+pdf_files = glob.glob(os.path.join(DOC_LOAD_DIR, "*.pdf"))
+md_files = glob.glob(os.path.join(DOC_LOAD_DIR, "*.md"))
+docx_files = glob.glob(os.path.join(DOC_LOAD_DIR, "*.docx"))
 
-print(f"Processing {len(pdf_files)} PDFs and {len(md_files)} Markdown files from the Horizons directory")
+print(f"Processing {len(pdf_files)} PDFs, {len(md_files)} Markdown and {len(docx_files)} DOCX files from the Horizons directory")
 
 # Load and chunk documents
 all_splits = []
@@ -98,7 +109,20 @@ for file in md_files:
     loader = DoclingLoader(
         file_path=[file],
         export_type=EXPORT_TYPE,
-        chunker=HybridChunker(tokenizer=EMBED_MODEL_ID),
+        chunker=chunker,
+    )
+    docs = loader.load()
+    # Trim metadata to prevent oversize issues
+    trimmed_docs = trim_metadata(docs)
+    all_splits.extend(trimmed_docs)
+
+# Process DOCX files
+for file in docx_files:
+    print(f"Loading DOCX: {Path(file).name}")
+    loader = DoclingLoader(
+        file_path=[file],
+        export_type=EXPORT_TYPE,
+        chunker=chunker,
     )
     docs = loader.load()
     # Trim metadata to prevent oversize issues
@@ -111,7 +135,7 @@ for file in pdf_files:
     loader = DoclingLoader(
         file_path=[file],
         export_type=EXPORT_TYPE,
-        chunker=HybridChunker(tokenizer=EMBED_MODEL_ID),
+        chunker=chunker,
     )
     docs = loader.load()
     # Trim metadata to prevent oversize issues
@@ -124,6 +148,7 @@ milvus_start = time.time()
 # Initialize embedding and vector store
 embedding = HuggingFaceEmbeddings(model_name=EMBED_MODEL_ID)
 
+print(all_splits)
 # Process in smaller batches to avoid oversize issues
 batch_size = 5
 total_docs = len(all_splits)
