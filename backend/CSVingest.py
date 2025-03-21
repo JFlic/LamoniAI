@@ -2,7 +2,7 @@ import os
 import csv
 
 # Folder containing the documents
-doc_folder = "Room Dimensions"
+doc_folder = "Horizons"
 
 # Output CSV file
 output_csv = "GetUrls.csv"
@@ -10,7 +10,7 @@ output_csv = "GetUrls.csv"
 # File extensions to include
 file_extensions = [".pdf", ".docx", ".md"]
 
-base_url = "https://my.graceland.edu/ICS/Resources/Residence_Life/Housing__Accommodations.jnz?portlet=Handouts"
+base_url = "https://www.graceland.edu/alumni/horizons/"
 
 # Read existing entries to avoid duplicates
 existing_entries = set()
@@ -36,7 +36,7 @@ with open(output_csv, mode="a", newline="", encoding="utf-8") as file:
     # Append only new files
     for doc in doc_files:
         if doc not in existing_entries:  # Avoid duplicates
-            doc_link = base_url + doc
+            doc_link = base_url
             writer.writerow([doc_link, doc])
 
 print(f"CSV file '{output_csv}' has been updated with new document links and names.")

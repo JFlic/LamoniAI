@@ -92,7 +92,7 @@ export default function Home() {
         {conversations.length === 0 ? (
           <div className="w-full max-w-2xl px-4">
             <h1 className="text-3xl font-bold text-center mb-8">
-              What can I help you with about our University?
+              What can I help you with about Graceland?
             </h1>
             
             {/* Common Questions */}

@@ -19,8 +19,12 @@ import pandas as pd
 
 process_start = time.time()
 
+env_path = os.path.join(os.path.dirname(__file__), ".env")
+load_dotenv(env_path)
+
+HF_TOKEN = os.getenv("HUGGING_FACE_KEY25")
+
 load_dotenv()
-HF_TOKEN = os.getenv("HUGGING_FACE_KEY2")
 login(token=HF_TOKEN)
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
@@ -69,8 +73,6 @@ def trim_metadata(docs):
         url = find_url(CSV_FILE, title)
         if not url:
             url = "None"
-        
-        print(doc.metadata.get("page"))
 
         simplified_metadata = {
             "title": title,
@@ -148,7 +150,6 @@ milvus_start = time.time()
 # Initialize embedding and vector store
 embedding = HuggingFaceEmbeddings(model_name=EMBED_MODEL_ID)
 
-print(all_splits)
 # Process in smaller batches to avoid oversize issues
 batch_size = 5
 total_docs = len(all_splits)

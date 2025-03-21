@@ -12,15 +12,23 @@ from langchain_huggingface.embeddings import HuggingFaceEmbeddings
 from langchain_core.documents import Document
 from langchain_core.retrievers import BaseRetriever
 from transformers import pipeline
+from huggingface_hub import login
 import torch
 
 load_dotenv()
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
+import os
+from dotenv import load_dotenv
+
+env_path = os.path.join(os.path.dirname(__file__), ".env")
+HF_TOKEN = os.getenv("HUGGING_FACE_KEY25")
+load_dotenv(env_path)
+login(token=HF_TOKEN)
+
 # Constants (you can keep your original constants here)
 EMBED_MODEL_ID = "BAAI/bge-m3"
-GEN_MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.2"
-HF_TOKEN = os.getenv("HUGGING_FACE_KEY2")
+GEN_MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.3"
 MILVUS_URI = "http://localhost:19530"
 TOP_K = 3
 
@@ -40,11 +48,12 @@ async def get_query_result(query: QueryRequest):
     )
 
     retriever = vectorstore.as_retriever(search_kwargs={"k": TOP_K})
+
     llm = HuggingFaceEndpoint(
         repo_id=GEN_MODEL_ID,
-        huggingfacehub_api_token=HF_TOKEN,
+        huggingfacehub_api_token= HF_TOKEN
     )
-
+    
     # Significantly improved prompt with clear formatting instructions
     PROMPT = PromptTemplate.from_template(
         """"role": "You are an AI assistant at Graceland University. 
