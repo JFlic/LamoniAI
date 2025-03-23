@@ -17,3 +17,4 @@ fastapi
 torch
 uvicorn
 dotenv
+html2text
