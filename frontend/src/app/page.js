@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from 'react-markdown';
 
 export default function Home() {
@@ -9,6 +9,7 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
   const [darkMode, setDarkMode] = useState(false);
+  const latestResponseRef = useRef(null); // Reference for the latest AI response
 
   // Common questions for quick access
   const commonQuestions = [
@@ -17,6 +18,24 @@ export default function Home() {
     "I'm a new student, what do I need?",
     "Where do I eat on campus?"
   ];
+
+  // Function to scroll to the latest AI response
+  const scrollToLatestResponse = () => {
+    if (latestResponseRef.current) {
+      latestResponseRef.current.scrollIntoView({ 
+        behavior: "smooth",
+        block: "start" // Align to the top of the viewport
+      });
+    }
+  };
+
+  // Scroll to latest response when conversations change or loading state changes
+  useEffect(() => {
+    if (conversations.length > 0 || !isLoading) {
+      // Small delay to ensure DOM has updated
+      setTimeout(scrollToLatestResponse, 100);
+    }
+  }, [conversations, isLoading]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -143,62 +162,115 @@ export default function Home() {
             </div>
           </div>
         ) : (
-          <div className="w-full max-w-2xl px-4 py-8">
-            {conversations.map((conv, index) => (
-              <div key={index} className={`mb-6 p-6 rounded-lg shadow-lg ${darkMode ? "bg-gray-800" : "bg-gray-100"}`}>
-                <div className="mb-4">
-                  <h3 className="font-semibold">Question:</h3>
-                  <p className="ml-4">{conv.question}</p>
-                </div>
-                
-                <div>
-                  <h3 className="font-semibold">Answer:</h3>
-                  <div className="ml-4 mb-4 prose max-w-none">
-                    <div className={darkMode ? "markdown-dark" : "markdown-light"}>
-                      <ReactMarkdown>{conv.response.answer}</ReactMarkdown>
+          <div className="w-full max-w-2xl px-4 py-8 flex flex-col h-[calc(100vh-4rem)]">
+            {/* Chat Container with scrollable area */}
+            <div className="flex-grow overflow-y-auto mb-4 pr-2 scrollbar-thin">
+              <div className="flex flex-col space-y-4">
+                {conversations.map((conv, index) => (
+                  <div key={index} className="flex flex-col space-y-3">
+                    {/* User Message Bubble (right aligned) */}
+                    <div className="flex justify-end">
+                      <div className={`max-w-[75%] rounded-lg py-2 px-4 ${
+                        darkMode 
+                          ? "bg-[#2757a3] text-white" 
+                          : "bg-[#fbcc0d] text-black"
+                      }`}>
+                        <p>{conv.question}</p>
+                      </div>
+                    </div>
+                    
+                    {/* AI Response Bubble (left aligned) */}
+                    <div className="flex justify-start">
+                      <div 
+                        className={`max-w-[90%] rounded-lg py-3 px-4 ${
+                          darkMode 
+                            ? "bg-gray-800 text-white" 
+                            : "bg-gray-100 text-black"
+                        }`}
+                        ref={index === conversations.length - 1 ? latestResponseRef : null}
+                      >
+                        {/* AI Header with Icon and Name */}
+                        <div className="flex items-center mb-2 pb-2 border-b border-opacity-20 border-current">
+                          <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold mr-2">
+                            RD
+                          </div>
+                          <span className="font-semibold">Rod Dixon</span>
+                        </div>
+                        
+                        <div className="prose max-w-none">
+                          <div className={darkMode ? "markdown-dark" : "markdown-light"}>
+                            <ReactMarkdown>{conv.response.answer}</ReactMarkdown>
+                          </div>
+                        </div>
+                        
+                        {/* Sources Section */}
+                        {conv.response.sources && conv.response.sources.length > 0 && (
+                          <div className={`mt-3 pt-3 border-t ${darkMode ? "border-gray-700" : "border-gray-300"}`}>
+                            <h4 className="text-xs uppercase font-semibold opacity-70 mb-1">Sources</h4>
+                            <ul className="text-xs space-y-1 opacity-80">
+                              {conv.response.sources.map((source, idx) => (
+                                <li key={idx}>
+                                  {source.source && source.source !== "None" ? (
+                                    <a 
+                                      href={source.source} 
+                                      target="_blank" 
+                                      rel="noopener noreferrer" 
+                                      className={`hover:underline ${darkMode ? 'text-blue-300' : 'text-blue-600'}`}
+                                    >
+                                      {source.title || "Unknown Title"}
+                                    </a>
+                                  ) : (
+                                    <span>{source.title || "Unknown Title"}</span>
+                                  )}
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
                     </div>
                   </div>
-
-                  {conv.response.sources && conv.response.sources.length > 0 && (
-                    <>
-                      <h4 className="font-semibold">Sources:</h4>
-                      <div className={`p-3 rounded mt-2 ${darkMode ? "bg-gray-700" : "bg-gray-200"}`}>
-                        <ul className="list-disc pl-5 space-y-2">
-                          {conv.response.sources.map((source, idx) => (
-                            <li key={idx} className="text-sm">
-                              {source.source && source.source !== "None" ? (
-                                <a 
-                                  href={source.source} 
-                                  target="_blank" 
-                                  rel="noopener noreferrer" 
-                                  className={`font-medium hover:underline ${darkMode ? 'text-blue-300' : 'text-blue-600'}`}
-                                >
-                                  {source.title || "Unknown Title"}
-                                </a>
-                              ) : (
-                                <span className="font-medium">
-                                  {source.title || "Unknown Title"}
-                                </span>
-                              )}
-                            </li>
-                          ))}
-                        </ul>
+                ))}
+                
+                {/* Loading bubble */}
+                {isLoading && (
+                  <div className="flex justify-start">
+                    <div 
+                      className={`max-w-[75%] rounded-lg py-3 px-4 ${
+                        darkMode 
+                          ? "bg-gray-800 text-white" 
+                          : "bg-gray-100 text-black"
+                      }`}
+                      ref={latestResponseRef}
+                    >
+                      {/* AI Header with Icon and Name */}
+                      <div className="flex items-center mb-2 pb-2 border-b border-opacity-20 border-current">
+                        <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold mr-2">
+                          RD
+                        </div>
+                        <span className="font-semibold">Rod Dixon</span>
                       </div>
-                    </>
-                  )}
-                </div>
+                      
+                      <div className="flex space-x-1">
+                        <div className="w-2 h-2 rounded-full bg-current animate-bounce"></div>
+                        <div className="w-2 h-2 rounded-full bg-current animate-bounce delay-100"></div>
+                        <div className="w-2 h-2 rounded-full bg-current animate-bounce delay-200"></div>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
-            ))}
+            </div>
 
             {/* Input for next question */}
-            <div className={`p-6 rounded-lg shadow-lg ${darkMode ? "bg-gray-800" : "bg-gray-100"}`}>
-              <form onSubmit={handleSubmit} className="space-y-4">
+            <div className={`sticky bottom-0 p-4 rounded-lg shadow-lg ${darkMode ? "bg-gray-800" : "bg-white"}`}>
+              <form onSubmit={handleSubmit} className="flex items-center space-x-2">
                 <input
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Ask another question"
-                  className={`w-full p-4 rounded-lg border ${
+                  placeholder="Type your message..."
+                  className={`flex-grow p-3 rounded-lg border ${
                     darkMode 
                       ? "bg-gray-700 text-white border-gray-600" 
                       : "bg-white text-black border-gray-300"
@@ -207,17 +279,23 @@ export default function Home() {
                 />
                 <button 
                   type="submit" 
-                  className={`w-full p-4 rounded-lg transition-colors text-white ${
+                  className={`p-3 rounded-lg transition-colors text-white ${
                     darkMode
                       ? "bg-[#0a3683] hover:bg-[#0b4094]"
                       : "bg-[#04215a] hover:bg-[#03184a]"
-                  }`}
+                  } disabled:opacity-50`}
                   disabled={isLoading}
                 >
-                  {isLoading ? "Loading..." : "Ask Question"}
+                  {isLoading ? 
+                    <svg className="animate-spin h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg> : 
+                    <span>Send</span>
+                  }
                 </button>
               </form>
-              {error && <div className="text-red-500 mt-4">{error}</div>}
+              {error && <div className="text-red-500 mt-2 text-sm">{error}</div>}
             </div>
           </div>
         )}
@@ -268,12 +346,12 @@ export default function Home() {
         }
         
         .markdown-dark strong {
-          color:rgb(0, 0, 0);
+          color: rgb(255, 255, 255);
           font-weight: bold;
         }
         
         .markdown-light strong {
-          color:rgb(0, 0, 0);
+          color: rgb(0, 0, 0);
           font-weight: bold;
         }
         
@@ -293,8 +371,30 @@ export default function Home() {
           border-radius: 0.25rem;
         }
         
+        .delay-100 {
+          animation-delay: 0.1s;
+        }
+        
+        .delay-200 {
+          animation-delay: 0.2s;
+        }
+        
         .whitespace-pre-wrap {
           white-space: pre-wrap;
+        }
+        
+        /* Custom scrollbar */
+        .scrollbar-thin::-webkit-scrollbar {
+          width: 6px;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-track {
+          background: transparent;
+        }
+        
+        .scrollbar-thin::-webkit-scrollbar-thumb {
+          background-color: rgba(156, 163, 175, 0.5);
+          border-radius: 20px;
         }
       `}</style>
     </div>

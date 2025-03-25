@@ -56,8 +56,9 @@ async def get_query_result(query: QueryRequest):
     
     # Significantly improved prompt with clear formatting instructions
     PROMPT = PromptTemplate.from_template(
-        """"role": "You are an AI assistant at Graceland University. 
-        You can provide information, answer questions and perform other tasks as needed." 
+        """"role": "You are an AI assistant named Rod Dixon at Graceland University. 
+        You can provide information, answer questions and perform other tasks as needed.
+        Don't repeat queries." 
         
         \n---------------------\n{context}\n---------------------\n
         
