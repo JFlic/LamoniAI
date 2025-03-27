@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect } from "react";
 import ReactMarkdown from 'react-markdown';
+import Image from "next/image";
 
 export default function Home() {
   const [query, setQuery] = useState("");
@@ -14,7 +15,7 @@ export default function Home() {
   // Common questions for quick access
   const commonQuestions = [
     "Where/How do I join a campus club?",
-    "What are popular campus events?",
+    "What do I need for the CSIT Major",
     "I'm a new student, what do I need?",
     "Where do I eat on campus?"
   ];
@@ -110,8 +111,21 @@ export default function Home() {
       <div className="flex flex-col items-center justify-center min-h-screen">
         {conversations.length === 0 ? (
           <div className="w-full max-w-2xl px-4">
+            {/* Large Rod Dixon Icon */}
+            <div className="flex justify-center mb-6">
+              <div className="w-42 h-42 rounded-full overflow-hidden border-4 border-[#fbcc0d] shadow-lg">
+                <Image 
+                  src="/person.JPG" 
+                  alt="Rod Dixon"
+                  width={200}
+                  height={200}
+                  className="object-cover"
+                />
+              </div>
+            </div>
+            
             <h1 className="text-3xl font-bold text-center mb-8">
-              What can I help you with about Graceland?
+              Hi I'm Rod Dixon, what do you want to know about Graceland?
             </h1>
             
             {/* Common Questions */}
@@ -190,12 +204,20 @@ export default function Home() {
                         ref={index === conversations.length - 1 ? latestResponseRef : null}
                       >
                         {/* AI Header with Icon and Name */}
-                        <div className="flex items-center mb-2 pb-2 border-b border-opacity-20 border-current">
-                          <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold mr-2">
-                            RD
-                          </div>
-                          <span className="font-semibold">Rod Dixon</span>
+                        <div className={`flex items-center mb-3 -mx-4 -mt-3 px-4 py-2 ${
+                          darkMode 
+                            ? "bg-gray-600 rounded-t-lg" 
+                            : "bg-gray-300 rounded-t-lg"
+                        }`}>
+                        <div className="w-12 h-12 rounded-full overflow-hidden mr-2">
+                        <Image src="/person.JPG" alt="Rod Dixon"
+                      width={50}
+                      height={50}
+                      className="rounded-full object-cover"
+                    />
                         </div>
+                        <span className="font-semibold">Rod Dixon</span>
+                      </div>
                         
                         <div className="prose max-w-none">
                           <div className={darkMode ? "markdown-dark" : "markdown-light"}>
@@ -244,9 +266,17 @@ export default function Home() {
                       ref={latestResponseRef}
                     >
                       {/* AI Header with Icon and Name */}
-                      <div className="flex items-center mb-2 pb-2 border-b border-opacity-20 border-current">
-                        <div className="w-6 h-6 rounded-full bg-blue-600 flex items-center justify-center text-white text-xs font-bold mr-2">
-                          RD
+                      <div className={`flex items-center mb-3 -mx-4 -mt-3 px-4 py-2 ${
+                        darkMode 
+                          ? "bg-gray-600 rounded-t-lg" 
+                          : "bg-gray-300 rounded-t-lg"
+                      }`}>
+                        <div className="w-12 h-12 rounded-full overflow-hidden mr-2">
+                        <Image src="/person.JPG" alt="Rod Dixon"
+                      width={50}
+                      height={50}
+                      className="rounded-full object-cover"
+                    />
                         </div>
                         <span className="font-semibold">Rod Dixon</span>
                       </div>

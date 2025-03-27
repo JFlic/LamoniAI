@@ -7,10 +7,10 @@ import csv
 import random
 import time
 
-DOC_LOAD_DIR = r"GracelandWebsite"
+DOC_LOAD_DIR = r"TempDocumentStore"
 CSV_FILE = "GetUrls.csv"
 BASE_URL = "https://www.graceland.edu/"
-MAX_PAGES = 10000
+MAX_PAGES = 15000
 
 # Web scraping functions
 def clean_filename(url):
@@ -60,7 +60,7 @@ def scrape_page(url):
         title = soup.title.string if soup.title else "No Title"
         
         # Extract all paragraph text
-        paragraphs = soup.find_all('p')
+        paragraphs = soup.find_all('p','span')
         content = ""
         
         # Get headings to preserve structure

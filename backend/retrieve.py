@@ -30,7 +30,7 @@ login(token=HF_TOKEN)
 EMBED_MODEL_ID = "BAAI/bge-m3"
 GEN_MODEL_ID = "mistralai/Mistral-7B-Instruct-v0.3"
 MILVUS_URI = "http://localhost:19530"
-TOP_K = 3
+TOP_K = 4
 
 app = FastAPI()
 
@@ -100,7 +100,7 @@ async def get_query_result(query: QueryRequest):
         }
         for doc in resp_dict["context"]
     ]
-    print(clipped_answer)
+    
     return {
         "question": query.query,
         "answer": clipped_answer,

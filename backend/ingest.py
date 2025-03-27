@@ -1,6 +1,7 @@
 import os
 import glob
 import time
+import csv
 import pandas as pd
 
 from pathlib import Path
@@ -18,9 +19,22 @@ from huggingface_hub import login
 env_path = os.path.join(os.path.dirname(__file__), ".env")
 load_dotenv(env_path)
 
-HF_TOKEN = os.getenv("HUGGING_FACE_KEY25")
+# Get the Hugging Face API token - try multiple possible environment variable names
+HF_TOKEN = os.getenv("HUGGING_FACE_KEY25") or os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_TOKEN25")
 
-login(token=HF_TOKEN)
+if not HF_TOKEN:
+    print("Warning: No Hugging Face token found in environment variables.")
+    print("Please set HUGGING_FACE_KEY, HF_TOKEN, or HUGGINGFACE_TOKEN in your .env file.")
+    print("Continuing without authentication, some models may not be accessible...")
+else:
+    # Only attempt login if we have a token
+    try:
+        login(token=HF_TOKEN)
+        print("Successfully authenticated with Hugging Face")
+    except Exception as e:
+        print(f"Warning: Failed to authenticate with Hugging Face: {e}")
+        print("Continuing without authentication, some models may not be accessible...")
+
 os.environ["TOKENIZERS_PARALLELISM"] = "false"
 
 # Constants
@@ -30,7 +44,6 @@ EXPORT_TYPE = ExportType.DOC_CHUNKS
 MILVUS_URI = "http://localhost:19530/"
 CSV_FILE = "GetUrls.csv"
 BASE_URL = "https://www.graceland.edu/"
-MAX_PAGES = 1000
 
 # Create the chunker for document processing
 chunker = HybridChunker(
@@ -70,18 +83,17 @@ def trim_metadata(docs):
         # editing meta data to correct title
         source = doc.metadata.get("source")
         title = source.replace("TempDocumentStore\\","")
-        if ".md" in title:
-            title = title.replace(".md","")
-        
-        if ".pdf" in title:
-            title = title.replace(".pdf","")
-
-        if ".docx" in title:
-            title = title.replace(".docx","")
 
         url = find_url(CSV_FILE, title)
         if not url:
             url = "None"
+        
+        if ".md" in title:
+            title = title.replace(".md","")
+
+        if ".docx" in title:
+            title = title.replace(".docx","")
+
 
         simplified_metadata = {
             "title": title,
