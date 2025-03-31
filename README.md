@@ -6,6 +6,9 @@ There is a total of 62,181 pages in the Lamoni Chronicle Achieve. Because you ca
 The computer that I’ve been using has an NVIDIA® GeForce RTX™ 3080 GPU in it. 
 It has Memory 10GB GDDR6X, 8704 cuda cores. 
 
+# .env
+Has Huggingface key and openAI key, For some reason whenever you get logged out of huggingface the key will need to be changed. So make sure if you're having logging in issues to print the key out and check it with the key in the .env file. 
+
 # Files
 UrlSaver.py gets the GETpdf urls and names of each pdf from the Lamoni preservation website. It then saves those pieces of information in GetPDFUrls.csv in two columns. Every GETpdf url takes around 1.23 seconds to save. For the entire Lamoni archive this would take around 21 hours give or take depending on the response time of the Lamoni archive. 
 

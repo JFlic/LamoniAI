@@ -1,5 +1,0 @@
-CleanedMarkDown\the_lamoni_chronicle_usa_iowa_lamoni_19010404_english_1.txt: Accuracy 97.89% | Misspelled: 58 | ✅ Suitable for RAG
-CleanedMarkDown\the_lamoni_chronicle_usa_iowa_lamoni_19010404_english_2.txt: Accuracy 97.73% | Misspelled: 65 | ✅ Suitable for RAG
-CleanedMarkDown\the_lamoni_chronicle_usa_iowa_lamoni_19010404_english_3.txt: Accuracy 99.37% | Misspelled: 40 | ✅ Suitable for RAG
-CleanedMarkDown\the_lamoni_chronicle_usa_iowa_lamoni_19010404_english_4.txt: Accuracy 99.23% | Misspelled: 76 | ✅ Suitable for RAG
-CleanedMarkDown\the_lamoni_chronicle_usa_iowa_lamoni_19010404_english_5.txt: Accuracy 98.21% | Misspelled: 110 | ✅ Suitable for RAG

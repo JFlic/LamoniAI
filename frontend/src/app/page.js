@@ -12,12 +12,15 @@ export default function Home() {
   const [darkMode, setDarkMode] = useState(false);
   const latestResponseRef = useRef(null); // Reference for the latest AI response
 
+  // Backend URL configuration
+  const BACKEND_URL = process.env.NEXT_PUBLIC_BACKEND_URL || "http://localhost:80";
+
   // Common questions for quick access
   const commonQuestions = [
-    "Where/How do I join a campus club?",
-    "What do I need for the CSIT Major",
-    "I'm a new student, what do I need?",
-    "Where do I eat on campus?"
+    "How do I join bingo night",
+    "What is the price of eggs at Hyvee?",
+    "What parks are in town?",
+    "where can I go"
   ];
 
   // Function to scroll to the latest AI response
@@ -46,7 +49,7 @@ export default function Home() {
     setError(null);
 
     try {
-      const res = await fetch("http://10.115.69.24:80/query/", {
+      const res = await fetch(`${BACKEND_URL}/query/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,7 +58,7 @@ export default function Home() {
       });
 
       if (!res.ok) {
-        throw new Error(`Error: ${res.status}`);
+        throw new Error(`Server error: ${res.status} - ${res.statusText}`);
       }
 
       const data = await res.json();
@@ -83,7 +86,7 @@ export default function Home() {
       setQuery("");
     } catch (err) {
       console.error("Error fetching data:", err);
-      setError(`Failed to get response: ${err.message}. Please check if the backend server is running on port 80.`);
+      setError(`Failed to get response: ${err.message}. Please check if the backend server is running and accessible.`);
     } finally {
       setIsLoading(false);
     }
@@ -125,7 +128,7 @@ export default function Home() {
             </div>
             
             <h1 className="text-3xl font-bold text-center mb-8">
-              Hi I'm Rod Dixon, what do you want to know about Graceland?
+              Hi I'm Rod Dixon, what do you want to know about your town?
             </h1>
             
             {/* Common Questions */}

@@ -7,10 +7,10 @@ import csv
 import random
 import time
 
-DOC_LOAD_DIR = r"TempDocumentStore"
-CSV_FILE = "GetUrls.csv"
-BASE_URL = "https://www.graceland.edu/"
-MAX_PAGES = 15000
+DOC_LOAD_DIR = r"LamoniWebsite"
+CSV_FILE = "LamoniUrls.csv"
+BASE_URL = "https://www.leadonlamoni.com/"
+MAX_PAGES = 10
 
 # Web scraping functions
 def clean_filename(url):
@@ -31,13 +31,37 @@ def is_valid_url(url):
     parsed = urlparse(url)
     
     # Check if it's within the same domain
-    if "graceland.edu" not in parsed.netloc:
+    if "leadonlamoni.com" not in parsed.netloc:
         return False
     
     # Check for excluded file extensions
     excluded_extensions = ['.pdf', '.jpg', '.jpeg', '.png', '.gif', '.doc', '.docx', '.xls', '.xlsx', '.zip', '.mp3', '.mp4', '.avi']
     if any(url.lower().endswith(ext) for ext in excluded_extensions):
         return False
+    
+    # Exclude specific paths that are not content pages
+    excluded_paths = [
+        '/wp-admin',
+        '/wp-login',
+        '/wp-content',
+        '/wp-includes',
+        '/feed',
+        '/tag',
+        '/category',
+        '/author',
+        '/comment',
+        '/search',
+        '/page',
+        '/attachment'
+    ]
+    if any(path in parsed.path.lower() for path in excluded_paths):
+        return False
+    
+    # Exclude URLs with query parameters that indicate non-content pages
+    excluded_queries = ['action', 'login', 'register', 'logout', 'admin']
+    if parsed.query:
+        if any(query in parsed.query.lower() for query in excluded_queries):
+            return False
     
     return True
 
@@ -59,8 +83,22 @@ def scrape_page(url):
         # Extract title
         title = soup.title.string if soup.title else "No Title"
         
-        # Extract all paragraph text
-        paragraphs = soup.find_all('p','span')
+        # Remove unwanted elements
+        for element in soup.find_all(['nav', 'header', 'footer', 'aside', 'script', 'style', 'noscript']):
+            element.decompose()
+            
+        # Remove elements with specific classes or IDs that are typically UI elements
+        unwanted_classes = [
+            'weather', 'navigation', 'menu', 'sidebar', 'footer', 'header',
+            'social', 'search', 'dropdown', 'toggle', 'breadcrumbs', 'widget',
+            'advertisement', 'banner', 'cookie-notice', 'newsletter','sr-onl'
+        ]
+        
+        for class_name in unwanted_classes:
+            for element in soup.find_all(class_=lambda x: x and class_name in x.lower()):
+                element.decompose()
+        
+        # Extract all text content
         content = ""
         
         # Get headings to preserve structure
@@ -75,21 +113,35 @@ def scrape_page(url):
                 'position': heading.sourceline
             }
         
-        # Process each paragraph
-        for paragraph in paragraphs:
-            # Skip empty paragraphs
-            text = paragraph.get_text(strip=True)
+        # Find all text-containing elements
+        text_elements = soup.find_all(['p', 'span', 'div', 'li', 'td', 'th'])
+        
+        # Process each text element
+        for element in text_elements:
+            # Skip empty elements
+            text = element.get_text(strip=True)
             if not text:
+                continue
+                
+            # Skip if this is a child of another text element we've already processed
+            if any(element in parent for parent in text_elements):
+                continue
+                
+            # Skip elements that are likely UI elements
+            if any(unwanted in text.lower() for unwanted in ['toggle', 'dropdown', 'search', 'menu', 'weather']):
+                continue
+                
+            # Skip very short text that's likely UI elements
+            if len(text) < 3:
                 continue
                 
             # Try to identify parent sections for better context
             parent_heading = None
             parent_position = 0
             
-            # try and find a less scuffed way of doing this later
-            # Look for the closest heading above this paragraph
+            # Look for the closest heading above this element
             for heading_id, heading_info in headings_dict.items():
-                if heading_info['position'] < paragraph.sourceline and heading_info['position'] > parent_position:
+                if heading_info['position'] < element.sourceline and heading_info['position'] > parent_position:
                     parent_heading = heading_info
                     parent_position = heading_info['position']
             
@@ -99,17 +151,8 @@ def scrape_page(url):
                 markdown_heading = '#' * heading_level + ' ' + parent_heading['text']
                 content += markdown_heading + "\n\n"
             
-            # Add paragraph text
+            # Add element text
             content += text + "\n\n"
-        
-        # Extract list items (<li> tags) as they often contain valuable content
-        list_items = soup.find_all('li')
-        if list_items:
-            content += "\n## Additional List Items\n\n"
-            for item in list_items:
-                item_text = item.get_text(strip=True)
-                if item_text:
-                    content += "- " + item_text + "\n"
         
         # Extract links from the page
         links = []

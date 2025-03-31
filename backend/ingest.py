@@ -14,35 +14,21 @@ from langchain_docling import DoclingLoader
 from docling.chunking import HybridChunker
 from langchain_core.documents import Document
 from huggingface_hub import login
+from huggingface_hub import whoami
 
-# Load environment variables
-env_path = os.path.join(os.path.dirname(__file__), ".env")
-load_dotenv(env_path)
+# Load environment variables from .env file
+load_dotenv()
 
-# Get the Hugging Face API token - try multiple possible environment variable names
-HF_TOKEN = os.getenv("HUGGING_FACE_KEY25") or os.getenv("HF_TOKEN") or os.getenv("HUGGINGFACE_TOKEN25")
-
-if not HF_TOKEN:
-    print("Warning: No Hugging Face token found in environment variables.")
-    print("Please set HUGGING_FACE_KEY, HF_TOKEN, or HUGGINGFACE_TOKEN in your .env file.")
-    print("Continuing without authentication, some models may not be accessible...")
-else:
-    # Only attempt login if we have a token
-    try:
-        login(token=HF_TOKEN)
-        print("Successfully authenticated with Hugging Face")
-    except Exception as e:
-        print(f"Warning: Failed to authenticate with Hugging Face: {e}")
-        print("Continuing without authentication, some models may not be accessible...")
-
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
+# Retrieve the token
+HF_TOKEN = os.environ.get("HUGGING_FACE_KEY30")
+login(HF_TOKEN)
 
 # Constants
 DOC_LOAD_DIR = r"TempDocumentStore"
 EMBED_MODEL_ID = "BAAI/bge-m3"
 EXPORT_TYPE = ExportType.DOC_CHUNKS
 MILVUS_URI = "http://localhost:19530/"
-CSV_FILE = "GetUrls.csv"
+CSV_FILE = "LamoniUrls.csv"
 BASE_URL = "https://www.graceland.edu/"
 
 # Create the chunker for document processing

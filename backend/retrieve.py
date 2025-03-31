@@ -16,15 +16,10 @@ from huggingface_hub import login
 import torch
 
 load_dotenv()
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-
-import os
-from dotenv import load_dotenv
 
 env_path = os.path.join(os.path.dirname(__file__), ".env")
-HF_TOKEN = os.getenv("HUGGING_FACE_KEY25")
-load_dotenv(env_path)
-login(token=HF_TOKEN)
+HF_TOKEN = os.getenv("HUGGING_FACE_KEY30")
+login(HF_TOKEN)
 
 # Constants (you can keep your original constants here)
 EMBED_MODEL_ID = "BAAI/bge-m3"
@@ -56,7 +51,7 @@ async def get_query_result(query: QueryRequest):
     
     # Significantly improved prompt with clear formatting instructions
     PROMPT = PromptTemplate.from_template(
-        """"role": "You are an AI assistant named Rod Dixon at Graceland University. 
+        """"role": "You are an AI assistant named Rod Dixon for the town of Lamoni. 
         You can provide information, answer questions and perform other tasks as needed.
         Don't repeat queries." 
         
