@@ -1,0 +1,329 @@
+# Admission and Financial Aid | Graceland University
+
+Source URL: http://www.graceland.edu/admissions/lamoni-campus#top
+
+Take your potential to the next level.
+
+An education from Graceland University is more than a degree. Here, we’re focused on building leaders. Through every educational opportunity we provide, both in and outside the classroom, we’re creating positive communities, relationships and experiences that develop our student’s potential to lead meaningful and productive lives.
+
+Graceland is a transformative education like no other – made possible by a faithful, supportive community like no other.
+
+FIND OUT MORE
+
+Learn about our different programs, specific admissions requirements, application instructions, and tuition, fees and financial aid opportunities for each type of Graceland student.
+
+Take the first step towards your future with 31 majors to choose from.
+
+Advance your education and career with an advanced degree.
+
+Get an amazing Graceland education from anywhere.
+
+Make the switch and continue your undergraduate degree at Graceland.
+
+Wherever you’re from, you’re welcome here.
+
+Graceland is officially a Military Friendly School and we’d love for you to join us.
+
+View current and upcoming tuition rates, housing and food, and other student fees for all our different programs.
+
+Lamoni Campus
+
+16:1
+
+Student to faculty ratio
+
+Fall 2023 Fact Book
+
+99%
+
+Receive financial aid
+
+Fall 2023 Fact Book
+
+71.5%
+
+Job placement rate after graduation
+
+Based on graduates surveyed by Career Services (2018)
+
+## Pay Your Student Deposit
+
+Ready to become a Gracelander? Save your spot at our Lamoni campus and get access to your room assignment and class registration by submitting your deposit today.
+
+Questions?
+
+1 University PlLamoni, IA 50140
+
+1401 W. Truman RoadIndependence, MO 64050
+
+Other Links:
+
+1 University Pl,Lamoni, IA 50140641.784.5000866.472.2352Campus Map
+
+1401 W. Truman Road,Independence, MO  64050816.833.0524800.833.0524
+
+We are using cookies to give you the best experience on our website.
+
+You can find out more about which cookies we are using or switch them off insettings.
+
+This website uses cookies so that we can provide you with the best user experience possible. Cookie information is stored in your browser and performs functions such as recognizing you when you return to our website and helping our team to understand which sections of the website you find most interesting and useful.
+
+Strictly Necessary Cookie should be enabled at all times so that we can save your preferences for cookie settings.
+
+If you disable this cookie, we will not be able to save your preferences. This means that every time you visit this website you will need to enable or disable cookies again.
+
+This website uses Google Analytics to collect anonymous information such as the number of visitors to the site, and the most popular pages.
+
+Keeping this cookie enabled helps us to improve our website.
+
+Please enable Strictly Necessary Cookies first so that we can save your preferences!
+
+
+## Additional List Items
+
+- Go Back
+- AcademicsMajors & ProgramsBusinessCSIT and Data ScienceEducationHealth and Movement ScienceHumanitiesNatural and Physical SciencesNursingPhysical TherapySeminarySocial SciencesVisual & Performing ArtsAdult and Graduate StudiesProfessional Continuing Education with SkillPathAcademic CalendarAcademic CatalogsUndergraduate CatalogGraduate CatalogHonors ProgramScholars ShowcaseLibrariesFrederick Madison Smith LibraryDr. Charles F. Grabske LibraryFeatured ProgramNursing Degree ProgramOur comprehensive nursing curriculum offers 2-year RN programs.Learn More
+- Majors & ProgramsBusinessCSIT and Data ScienceEducationHealth and Movement ScienceHumanitiesNatural and Physical SciencesNursingPhysical TherapySeminarySocial SciencesVisual & Performing Arts
+- Business
+- CSIT and Data Science
+- Education
+- Health and Movement Science
+- Humanities
+- Natural and Physical Sciences
+- Nursing
+- Physical Therapy
+- Seminary
+- Social Sciences
+- Visual & Performing Arts
+- Adult and Graduate Studies
+- Professional Continuing Education with SkillPath
+- Academic Calendar
+- Academic CatalogsUndergraduate CatalogGraduate Catalog
+- Undergraduate Catalog
+- Graduate Catalog
+- Honors Program
+- Scholars Showcase
+- LibrariesFrederick Madison Smith LibraryDr. Charles F. Grabske Library
+- Frederick Madison Smith Library
+- Dr. Charles F. Grabske Library
+- Featured ProgramNursing Degree ProgramOur comprehensive nursing curriculum offers 2-year RN programs.Learn More
+- Admissions & AidAccepted StudentsUndergraduate AdmissionsGraduate AdmissionsInternational Student AdmissionsMilitary and Veterans AdmissionsOnline AdmissionsTransfer AdmissionsAdmissions AdvisorsParents/FamilyTuition and Financial AidTuition and FeesGraceland ScholarshipsNet Price CalculatorRequest Information
+- Accepted Students
+- Undergraduate Admissions
+- Graduate Admissions
+- International Student Admissions
+- Military and Veterans Admissions
+- Online Admissions
+- Transfer Admissions
+- Admissions Advisors
+- Parents/Family
+- Tuition and Financial AidTuition and FeesGraceland ScholarshipsNet Price Calculator
+- Tuition and Fees
+- Graceland Scholarships
+- Net Price Calculator
+- Request Information
+- Student LifeCampus LivingHouse Social SystemDiningGet InvolvedVisual and Performing ArtsArt DepartmentMusic DepartmentTheatre DepartmentShaw Box OfficeCampus SafetySupport ServicesTRIOWriting CenterFirst Year ExperienceTutoringIntercultural OfficeMental Health ServicesDisability ServicesIndependence Campus
+- Campus Living
+- House Social System
+- Dining
+- Get Involved
+- Visual and Performing ArtsArt DepartmentMusic DepartmentTheatre DepartmentShaw Box Office
+- Art Department
+- Music Department
+- Theatre Department
+- Shaw Box Office
+- Campus Safety
+- Support ServicesTRIOWriting CenterFirst Year ExperienceTutoringIntercultural OfficeMental Health ServicesDisability Services
+- TRIO
+- Writing Center
+- First Year Experience
+- Tutoring
+- Intercultural Office
+- Mental Health Services
+- Disability Services
+- Independence Campus
+- AboutQuick FactsCampus LocationsNews & EventsLeadershipCareers at Graceland UniversityHistoryGraceland + SkillPathCommunity of ChristAccreditationBlog
+- Quick Facts
+- Campus Locations
+- News & Events
+- Leadership
+- Careers at Graceland University
+- History
+- Graceland + SkillPath
+- Community of Christ
+- Accreditation
+- Blog
+- Athletics
+- AlumniAlumni Board of DirectorsBenefits and AdvantagesHorizonsSubmit a Class NoteGraceland Spirit ShopAlumni GearConnectEventsGU4UUpdate Your InformationInstitutional Advancement TeamGraceland LiveVolunteer Confidentiality FormEventsHomecoming#Grateful4GracelandAlumni SwarmGolf ClassicGraceland LiveGraceland Football Alumni AssociationGiveAlumni Endowed Scholarship#Grateful4GracelandBrick PlazaThe Graceland FundFundraising CampaignsGiving Clubs
+- Alumni Board of Directors
+- Benefits and Advantages
+- HorizonsSubmit a Class Note
+- Submit a Class Note
+- Graceland Spirit ShopAlumni Gear
+- Alumni Gear
+- ConnectEventsGU4UUpdate Your InformationInstitutional Advancement TeamGraceland LiveVolunteer Confidentiality Form
+- Events
+- GU4U
+- Update Your Information
+- Institutional Advancement Team
+- Graceland Live
+- Volunteer Confidentiality Form
+- EventsHomecoming#Grateful4GracelandAlumni SwarmGolf ClassicGraceland LiveGraceland Football Alumni Association
+- Homecoming
+- #Grateful4Graceland
+- Alumni Swarm
+- Golf Classic
+- Graceland Live
+- Graceland Football Alumni Association
+- GiveAlumni Endowed Scholarship#Grateful4GracelandBrick PlazaThe Graceland FundFundraising CampaignsGiving Clubs
+- Alumni Endowed Scholarship
+- #Grateful4Graceland
+- Brick Plaza
+- The Graceland Fund
+- Fundraising Campaigns
+- Giving Clubs
+- Visit
+- GiveGiveAlumni Endowed ScholarshipFundraising CampaignsGiving Clubs#Grateful4GracelandEndowmentsThe Graceland FundYellow Jackets Women’s Philanthropy Circle
+- GiveAlumni Endowed ScholarshipFundraising CampaignsGiving Clubs#Grateful4GracelandEndowmentsThe Graceland FundYellow Jackets Women’s Philanthropy Circle
+- Alumni Endowed Scholarship
+- Fundraising Campaigns
+- Giving Clubs
+- #Grateful4Graceland
+- Endowments
+- The Graceland Fund
+- Yellow Jackets Women’s Philanthropy Circle
+- LoginsmyGracelandBrightspaceEmail Link (Office 365)Merit Pages
+- myGraceland
+- Brightspace
+- Email Link (Office 365)
+- Merit Pages
+- Go Back
+- AcademicsMajors & ProgramsBusinessCSIT and Data ScienceEducationHealth and Movement ScienceHumanitiesNatural and Physical SciencesNursingPhysical TherapySeminarySocial SciencesVisual & Performing ArtsAdult and Graduate StudiesProfessional Continuing Education with SkillPathAcademic CalendarAcademic CatalogsUndergraduate CatalogGraduate CatalogHonors ProgramScholars ShowcaseLibrariesFrederick Madison Smith LibraryDr. Charles F. Grabske LibraryFeatured ProgramNursing Degree ProgramOur comprehensive nursing curriculum offers 2-year RN programs.Learn More
+- Majors & ProgramsBusinessCSIT and Data ScienceEducationHealth and Movement ScienceHumanitiesNatural and Physical SciencesNursingPhysical TherapySeminarySocial SciencesVisual & Performing Arts
+- Business
+- CSIT and Data Science
+- Education
+- Health and Movement Science
+- Humanities
+- Natural and Physical Sciences
+- Nursing
+- Physical Therapy
+- Seminary
+- Social Sciences
+- Visual & Performing Arts
+- Adult and Graduate Studies
+- Professional Continuing Education with SkillPath
+- Academic Calendar
+- Academic CatalogsUndergraduate CatalogGraduate Catalog
+- Undergraduate Catalog
+- Graduate Catalog
+- Honors Program
+- Scholars Showcase
+- LibrariesFrederick Madison Smith LibraryDr. Charles F. Grabske Library
+- Frederick Madison Smith Library
+- Dr. Charles F. Grabske Library
+- Featured ProgramNursing Degree ProgramOur comprehensive nursing curriculum offers 2-year RN programs.Learn More
+- Admissions & AidAccepted StudentsUndergraduate AdmissionsGraduate AdmissionsInternational Student AdmissionsMilitary and Veterans AdmissionsOnline AdmissionsTransfer AdmissionsAdmissions AdvisorsParents/FamilyTuition and Financial AidTuition and FeesGraceland ScholarshipsNet Price CalculatorRequest Information
+- Accepted Students
+- Undergraduate Admissions
+- Graduate Admissions
+- International Student Admissions
+- Military and Veterans Admissions
+- Online Admissions
+- Transfer Admissions
+- Admissions Advisors
+- Parents/Family
+- Tuition and Financial AidTuition and FeesGraceland ScholarshipsNet Price Calculator
+- Tuition and Fees
+- Graceland Scholarships
+- Net Price Calculator
+- Request Information
+- Student LifeCampus LivingHouse Social SystemDiningGet InvolvedVisual and Performing ArtsArt DepartmentMusic DepartmentTheatre DepartmentShaw Box OfficeCampus SafetySupport ServicesTRIOWriting CenterFirst Year ExperienceTutoringIntercultural OfficeMental Health ServicesDisability ServicesIndependence Campus
+- Campus Living
+- House Social System
+- Dining
+- Get Involved
+- Visual and Performing ArtsArt DepartmentMusic DepartmentTheatre DepartmentShaw Box Office
+- Art Department
+- Music Department
+- Theatre Department
+- Shaw Box Office
+- Campus Safety
+- Support ServicesTRIOWriting CenterFirst Year ExperienceTutoringIntercultural OfficeMental Health ServicesDisability Services
+- TRIO
+- Writing Center
+- First Year Experience
+- Tutoring
+- Intercultural Office
+- Mental Health Services
+- Disability Services
+- Independence Campus
+- AboutQuick FactsCampus LocationsNews & EventsLeadershipCareers at Graceland UniversityHistoryGraceland + SkillPathCommunity of ChristAccreditationBlog
+- Quick Facts
+- Campus Locations
+- News & Events
+- Leadership
+- Careers at Graceland University
+- History
+- Graceland + SkillPath
+- Community of Christ
+- Accreditation
+- Blog
+- Athletics
+- AlumniAlumni Board of DirectorsBenefits and AdvantagesHorizonsSubmit a Class NoteGraceland Spirit ShopAlumni GearConnectEventsGU4UUpdate Your InformationInstitutional Advancement TeamGraceland LiveVolunteer Confidentiality FormEventsHomecoming#Grateful4GracelandAlumni SwarmGolf ClassicGraceland LiveGraceland Football Alumni AssociationGiveAlumni Endowed Scholarship#Grateful4GracelandBrick PlazaThe Graceland FundFundraising CampaignsGiving Clubs
+- Alumni Board of Directors
+- Benefits and Advantages
+- HorizonsSubmit a Class Note
+- Submit a Class Note
+- Graceland Spirit ShopAlumni Gear
+- Alumni Gear
+- ConnectEventsGU4UUpdate Your InformationInstitutional Advancement TeamGraceland LiveVolunteer Confidentiality Form
+- Events
+- GU4U
+- Update Your Information
+- Institutional Advancement Team
+- Graceland Live
+- Volunteer Confidentiality Form
+- EventsHomecoming#Grateful4GracelandAlumni SwarmGolf ClassicGraceland LiveGraceland Football Alumni Association
+- Homecoming
+- #Grateful4Graceland
+- Alumni Swarm
+- Golf Classic
+- Graceland Live
+- Graceland Football Alumni Association
+- GiveAlumni Endowed Scholarship#Grateful4GracelandBrick PlazaThe Graceland FundFundraising CampaignsGiving Clubs
+- Alumni Endowed Scholarship
+- #Grateful4Graceland
+- Brick Plaza
+- The Graceland Fund
+- Fundraising Campaigns
+- Giving Clubs
+- Visit
+- GiveGiveAlumni Endowed ScholarshipFundraising CampaignsGiving Clubs#Grateful4GracelandEndowmentsThe Graceland FundYellow Jackets Women’s Philanthropy Circle
+- GiveAlumni Endowed ScholarshipFundraising CampaignsGiving Clubs#Grateful4GracelandEndowmentsThe Graceland FundYellow Jackets Women’s Philanthropy Circle
+- Alumni Endowed Scholarship
+- Fundraising Campaigns
+- Giving Clubs
+- #Grateful4Graceland
+- Endowments
+- The Graceland Fund
+- Yellow Jackets Women’s Philanthropy Circle
+- LoginsmyGracelandBrightspaceEmail Link (Office 365)Merit Pages
+- myGraceland
+- Brightspace
+- Email Link (Office 365)
+- Merit Pages
+- FIND OUT MORE
+- Accepted Students
+- Undergraduate Admissions
+- Graduate Admissions
+- International Student Admissions
+- Military and Veterans Admissions
+- Online Admissions
+- Transfer Admissions
+- Meet Your Counselor
+- Parents/Family
+- Tuition and Financial Aid
+- Privacy Overview
+- Strictly Necessary Cookies
+- 3rd Party Cookies

@@ -2,6 +2,11 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from retrieve import get_query_result
+import os
+import sys
+
+# Add the parent directory to the Python path
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 app = FastAPI()
 
@@ -20,8 +25,7 @@ class QueryRequest(BaseModel):
 @app.post("/query/")
 async def my_query_endpoint(query: QueryRequest):
     return await get_query_result(query)
-# test
-# Add this code to run the server when the file is executed directly
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=80) # 8000 is already in use from Milvus
+    uvicorn.run(app, host="0.0.0.0", port=80)

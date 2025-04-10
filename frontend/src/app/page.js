@@ -17,10 +17,10 @@ export default function Home() {
 
   // Common questions for quick access
   const commonQuestions = [
-    "How do I join bingo night",
-    "What is the price of eggs at Hyvee?",
-    "What parks are in town?",
-    "where can I go"
+    "How do I make a club at Graceland?",
+    "What are some events on campus?",
+    "Where do I eat on campus?",
+    "What do I need for the Data Science?"
   ];
 
   // Function to scroll to the latest AI response
